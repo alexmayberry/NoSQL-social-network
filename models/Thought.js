@@ -1,4 +1,6 @@
 const { Schema, model } = require('mongoose');
+// This did not autofill to ./Reaction and may cause issues
+const { reactionSchema } = require('../Reaction');
 
 const thoughtSchema = new Schema(
   {
@@ -15,8 +17,8 @@ const thoughtSchema = new Schema(
     },
     // username: something,
     // the user who created the thought
-    // so you need to create a new reaction schema inside the Thought schema in order to nest it as a subdocument? Can't you import it?
     reactions: [reactionSchema],
+    // so you need to create a new reaction schema inside the Thought schema in order to nest it as a subdocument? Can't you import it?
   },
   {
     toJSON: {
@@ -25,6 +27,10 @@ const thoughtSchema = new Schema(
     id: false,
   }
 );
+
+thoughtSchema.virtuals('reactionCount', function () {
+  return this.reactions.length;
+});
 
 const Thought = model('thought', thoughtSchema);
 
