@@ -27,6 +27,28 @@ module.exports = {
         return res.status(500).json(err);
       });
   },
+ 
+  // ALI Create a Thought
+//   createThought (req, res) {
+//     Thought.create(req.body)
+//         .then(thoughtData => {
+//             return User.findOneAndUpdate(
+//                 {_id: req.body.userId},
+//                 {$push: {thoughts: thoughtData._id}},
+//                 {new: true}
+//             );
+//         })
+//         .then(userData => {
+//             if(!userData) {
+//                 res.status(404).json({message: 'Please enter a valid user ID.'});
+//                 return;
+//             }
+//             res.json({message: 'The thought has been created!'});
+//         })
+//         .catch(err => res.status(400).json(err));
+// },
+
+
   // Delete a thought
   deleteThought(req, res) {
     Thought.findOneAndDelete({ _id: req.params.thoughtId })
