@@ -150,7 +150,7 @@ const emails = [
 "intlprog@msn.com",
 ]
 
-const appDescriptions = [
+const butts = [
   'Decision Tracker',
   'Find My Phone',
   'Learn Piano',
@@ -171,12 +171,33 @@ const appDescriptions = [
   'Deliveries',
 ];
 
+const thoughts = [
+  "I made some eggs.",
+  "These dancers are like family.",
+  "She was too dull to keep his attention for more than a few minutes.",
+  "She bought her shoes at a fake market in Shanghai, where they cost her only $5.",
+  "They can be divided into three groups.",
+  "I am afraid of tornados.",
+  "I want to be done with this.",
+  "The tornado went down her street, straight past her house, and picked up a raccoon.",
+  "I'd like to honor a person.",
+  "I was in a boyband and we were signed to a label.",
+  "The store had multiple skeletons they claimed were real, alongside a taxidermies, two-headed calf.",
+  "It takes a lot of money to keep up such a big house.",
+  "She wished she could speak Italian.",
+  "He ordered a latte.",
+  "Don't open the door!",
+  "Shape up or ship out!",
+  "Tom started a list so he wouldn't forget anything.",
+  "What a big boy he is!",
+];
+
 // Get a random item given an array
 const getRandomArrItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
 // Gets a random full name
 const getRandomName = () =>
-  `${getRandomArrItem(names)} ${getRandomArrItem(names)}`;
+  `${getRandomArrItem(usernames)}`;
 
 // Function to generate random assignments that we can add to student object.
 const getRandomAssignments = (int) => {
