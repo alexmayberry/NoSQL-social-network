@@ -76,9 +76,9 @@ module.exports = {
   },
 
   createFriend(req, res) {
-
+    console.log("this is not built yet");
   },
   deleteFriend(req, res) {
-
+    console.log("this is not built yet");
   },
 };
