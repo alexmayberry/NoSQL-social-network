@@ -75,10 +75,32 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
 
-  createFriend(req, res) {
-    console.log("this is not built yet");
+  addReaction(req, res) {
+    // create an instanc of a subdocument
+    Thought.findOneAndUpdate(
+      { _id: req.params.thoughtId },
+      { $addToSet: { reactions: req.body } },
+      { runValidators: true, new: true }
+    )
+    .then((reactionData) => {
+      !reactionData
+        ? res.send(404).json({ message: "No reaction with this id found"})
+        : res.send(200).json(reactionData)
+    } )
+    .catch((err) => res.status(500).json(err));
   },
-  deleteFriend(req, res) {
-    console.log("this is not built yet");
+  deleteReaction(req, res) {
+    // delete an instance of a subdocument
+    Thought.findOneAndUpdate(
+      { _id: req.params.thoughtId },
+      { $pull: { reactions: { reactionId: req.params.reactionId } } },
+      { runValidators: true, new: true }
+    )
+    .then((reactionData) => {
+      !reactionData
+        ? res.send(404).json({ message: "No reaction with this id found"})
+        : res.send(200).json(reactionData)
+    } )
+    .catch((err) => res.status(500).json(err));
   },
 };
