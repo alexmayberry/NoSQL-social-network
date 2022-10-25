@@ -76,13 +76,13 @@ module.exports = {
     )
     .then((reactionData) => {
       !reactionData
-        ? res.send(404).json({ message: "No reaction with this id found"})
-        : res.sendStatus(200).json(reactionData)
+        ? res.status(404).json({ message: "No reaction with this id found"})
+        : res.status(200).json(reactionData)
     } )
     .catch((err) => res.status(400).json(err));
   },
   deleteReaction(req, res) {
-    // delete an instance of a subdocument
+    // delete an instance of a subdocument 
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
       { $pull: { reactions: { reactionId: req.params.reactionId } } },
@@ -90,8 +90,8 @@ module.exports = {
     )
     .then((reactionData) => {
       !reactionData
-        ? res.send(404).json({ message: "No reaction with this id found"})
-        : res.send(200).json(reactionData)
+        ? res.status(404).json({ message: "No reaction with this id found"})
+        : res.status(200).json(reactionData)
     } )
     .catch((err) => res.status(500).json(err));
   },
