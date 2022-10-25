@@ -1,10 +1,11 @@
+const { ObjectId } = require('mongoose').Types;
 const { Schema, model } = require('mongoose');
 
 const reactionSchema = new Schema(
   {
     reactionId: {
       type: Schema.Types.ObjectId,
-      default: () => new Types.ObjectId(),
+      default: () => new ObjectId(),
     },
     reactionBody: {
       type: String,
@@ -42,10 +43,8 @@ const thoughtSchema = new Schema(
       default: Date.now(),
       // Use a getter method to format the timestamp on query
     },
-    // username: something,
-    // the user who created the thought
+    // username: <something>,
     reactions: [reactionSchema],
-    // so you need to create a new reaction schema inside the Thought schema in order to nest it as a subdocument? Can't you import it?
   },
   {
     toJSON: {

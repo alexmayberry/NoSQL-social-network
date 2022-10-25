@@ -21,33 +21,25 @@ module.exports = {
   // Create a thought
   createThought(req, res) {
     Thought.create(req.body)
-      .then((thought) => res.json(thought))
+      .then((thoughtData) => {
+        return User.findOneAndUpdate(
+          {_id: req.body.userId},
+          {$push: {thoughts: thoughtData._id}},
+          {new: true}
+        )
+      .then((userData) => {
+        if(!userData) {
+          res.status(404).json({message: 'Please enter a valid user ID.'});
+          return;
+        }
+        res.json({message: 'Thought Added!'});
+      })
+      })
       .catch((err) => {
         console.log(err);
-        return res.status(500).json(err);
+        return res.status(400).json(err);
       });
   },
- 
-  // ALI Create a Thought
-//   createThought (req, res) {
-//     Thought.create(req.body)
-//         .then(thoughtData => {
-//             return User.findOneAndUpdate(
-//                 {_id: req.body.userId},
-//                 {$push: {thoughts: thoughtData._id}},
-//                 {new: true}
-//             );
-//         })
-//         .then(userData => {
-//             if(!userData) {
-//                 res.status(404).json({message: 'Please enter a valid user ID.'});
-//                 return;
-//             }
-//             res.json({message: 'The thought has been created!'});
-//         })
-//         .catch(err => res.status(400).json(err));
-// },
-
 
   // Delete a thought
   deleteThought(req, res) {
@@ -57,7 +49,7 @@ module.exports = {
           ? res.status(404).json({ message: 'No thought with that ID' })
           : User.deleteMany({ _id: { $in: thought.users } })
       )
-      .then(() => res.json({ message: 'Thought and users deleted!' }))
+      .then(() => res.json({ message: 'Thought deleted!' }))
       .catch((err) => res.status(500).json(err));
   },
   // Update a thought
@@ -85,9 +77,9 @@ module.exports = {
     .then((reactionData) => {
       !reactionData
         ? res.send(404).json({ message: "No reaction with this id found"})
-        : res.send(200).json(reactionData)
+        : res.sendStatus(200).json(reactionData)
     } )
-    .catch((err) => res.status(500).json(err));
+    .catch((err) => res.status(400).json(err));
   },
   deleteReaction(req, res) {
     // delete an instance of a subdocument

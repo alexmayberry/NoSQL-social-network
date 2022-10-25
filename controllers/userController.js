@@ -2,36 +2,11 @@
 const { ObjectId } = require('mongoose').Types;
 const { User, Thought } = require('../models');
 
-// // TODO: Create an aggregate function to get the number of users overall
-// const headCount = async () =>
-//   User.aggregate()
-//   .then((numberOfUsers) => numberOfUsers);
-
-// // Execute the aggregate method on the User model and calculate the overall grade by using the $avg operator
-// const grade = async (userId) =>
-//   User.aggregate([
-//     // TODO: Ensure we include only the user who can match the given ObjectId using the $match operator
-//     {
-//       // Your code here
-//     },
-//     {
-//       $unwind: '$friends',
-//     },
-//     // TODO: Group information for the user with the given ObjectId alongside an overall grade calculated using the $avg operator
-//     {
-//       // Your code here
-//     },
-//   ]);
-
 module.exports = {
   // Get all users
   getUsers(req, res) {
     User.find()
       .then(async (users) => {
-//         const userObj = {
-//           users,
-//           headCount: await headCount(users),
-//         };
         return res.json(users);
       })
       .catch((err) => {
@@ -49,7 +24,6 @@ module.exports = {
           ? res.status(404).json({ message: 'No user with that ID' })
           : res.json({
               user,
-//              grade: await grade(req.params.userId),
             })
       )
       .catch((err) => {
